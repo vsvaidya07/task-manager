@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Task Manager · System</title>
+  <!-- Optional fonts (needs internet). The page still looks fine without them. -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Rajdhani:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="app">
+    <h1 class="app-title">TASK MANAGER</h1>
+    <p class="app-sub">[ Week 04 &middot; The System is watching ]</p>
+    <div class="sound-row">
+      <button type="button" id="sound-btn" class="sound-btn" aria-pressed="true">SOUND: ON</button>
+      <button type="button" id="voice-btn" class="sound-btn" aria-pressed="true">VOICE: ON</button>
+    </div>
+
+    <!-- ===== Status window ===== -->
+    <section class="window" aria-labelledby="status-title">
+      <h2 class="window-title" id="status-title">Status</h2>
+
+      <div class="player-row">
+        <div class="rank-emblem" id="rank-emblem" data-rank="E" aria-label="Rank">E</div>
+        <div class="player-info">
+          <form id="name-form" class="name-form" autocomplete="off">
+            <input
+              type="text"
+              id="nickname-input"
+              class="nickname-input"
+              maxlength="16"
+              placeholder="PLAYER"
+              aria-label="Your nickname"
+            />
+            <button type="submit" class="name-btn" aria-label="Save nickname">SET</button>
+          </form>
+          <div class="player-title" id="player-title">E-Rank Hunter</div>
+          <div class="lvl-line">
+            <span id="level-label" class="level-label">LV. 1</span>
+            <span id="streak" class="streak" title="Days in a row with a cleared task">STREAK 0</span>
+          </div>
+        </div>
+      </div>
+
+      <div
+        class="xp-bar"
+        id="xp-bar"
+        role="progressbar"
+        aria-label="XP progress to next level"
+        aria-valuemin="0"
+        aria-valuemax="30"
+        aria-valuenow="0"
+      >
+        <div class="xp-fill" id="xp-fill"></div>
+      </div>
+      <div class="xp-text" id="xp-text">0 / 30 XP</div>
+
+      <div class="section-head">
+        <span>Abilities</span>
+        <span id="points-label" class="points">POINTS 0</span>
+      </div>
+      <ul class="stats" id="stats"></ul>
+
+      <div class="daily">
+        <div class="section-head">
+          <span>Daily Quest</span>
+          <span id="daily-count" class="points">0 / 3</span>
+        </div>
+        <p class="daily-text" id="daily-text">Clear 3 tasks today. Reward: +25 XP</p>
+        <div class="daily-bar"><div class="daily-fill" id="daily-fill"></div></div>
+      </div>
+
+      <p class="coach" id="coach-msg"></p>
+      <p class="hint" id="hint"></p>
+    </section>
+
+    <!-- ===== Quest log (the task manager itself) ===== -->
+    <section class="window" aria-labelledby="log-title">
+      <h2 class="window-title" id="log-title">Quest Log</h2>
+
+      <form id="task-form" class="task-form" novalidate>
+        <input
+          type="text"
+          id="task-input"
+          placeholder="Register a new task..."
+          maxlength="120"
+          autocomplete="off"
+          aria-label="New task"
+        />
+        <button type="submit" id="add-btn">Add</button>
+      </form>
+      <p id="error-msg" class="error" role="alert" aria-live="polite"></p>
+
+      <div class="toolbar">
+        <span id="task-counter" class="counter">0 pending tasks</span>
+        <div class="filters" role="group" aria-label="Filter tasks">
+          <button type="button" class="filter-btn active" data-filter="all">All</button>
+          <button type="button" class="filter-btn" data-filter="pending">Pending</button>
+          <button type="button" class="filter-btn" data-filter="completed">Completed</button>
+        </div>
+      </div>
+
+      <ul id="task-list" class="task-list"></ul>
+      <p id="empty-msg" class="empty-msg"></p>
+
+      <button type="button" id="clear-completed" class="clear-btn">Clear completed</button>
+    </section>
+
+    <!-- ===== Titles ===== -->
+    <details class="window titles">
+      <summary>Titles <span id="titles-count" class="points">0 / 7</span></summary>
+      <ul class="title-list" id="badges"></ul>
+    </details>
+  </main>
+
+  <!-- System notification (click or press Esc to dismiss) -->
+  <div id="sys-overlay" class="sys-overlay">
+    <div class="sys-window" role="status" aria-live="polite">
+      <div class="sys-head">[ SYSTEM ]</div>
+      <div class="sys-title" id="sys-title"></div>
+      <div class="sys-body" id="sys-body"></div>
+    </div>
+  </div>
+
+  <canvas id="confetti" aria-hidden="true"></canvas>
+
+  <script src="sound.js"></script>
+  <script src="voice.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
